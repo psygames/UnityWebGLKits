@@ -3,10 +3,11 @@ The Unity WebGL Platform Extension Kis.
 
 ## 功能列表
 
-- 文件上传
 - 弹窗 (alert)
 - 日志 (console.log)
 - 执行JS代码 (eval)
+- 设置窗口分辨率
+- 文件上传
 
 
 ## 待添加
