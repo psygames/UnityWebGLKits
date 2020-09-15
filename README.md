@@ -7,7 +7,7 @@ The Unity WebGL Platform Extension Kis.
 - 日志 (console.log)
 - 执行JS代码 (eval)
 - 设置窗口分辨率
-- 文件上传
+- 打开本地文件
 
 
 ## 待添加
