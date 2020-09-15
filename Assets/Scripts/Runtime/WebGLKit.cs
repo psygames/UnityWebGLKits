@@ -7,10 +7,10 @@ namespace WebGLKits
 {
     public static class WebGLKit
     {
-        public static void UploadFile(Action<string, byte[]> callback)
+        public static void OpenFile(Action<string, byte[]> callback)
         {
-            Library.onUploadFileCompleted = callback;
-            Library.UploadFile(Library.DelegateOnUploadFileCompletedEvent);
+            Library.onOpenFileCompleted = callback;
+            Library.OpenFile(Library.DelegateOnOpenFileCompletedEvent);
         }
 
         public static void Alert(string str)
@@ -47,19 +47,19 @@ namespace WebGLKits
     internal static class Library
     {
         [DllImport("__Internal")]
-        internal static extern int UploadFile(OnUploadFileCompleted callback);
+        internal static extern int OpenFile(OnOpenFileCompleted callback);
 
-        internal delegate void OnUploadFileCompleted(IntPtr namePtr, IntPtr chunkPtr, int chunkSize);
-        internal static Action<string, byte[]> onUploadFileCompleted;
+        internal delegate void OnOpenFileCompleted(IntPtr namePtr, IntPtr chunkPtr, int chunkSize);
+        internal static Action<string, byte[]> onOpenFileCompleted;
 
-        [MonoPInvokeCallback(typeof(OnUploadFileCompleted))]
-        internal static void DelegateOnUploadFileCompletedEvent(IntPtr namePtr, IntPtr chunkPtr, int chunkSize)
+        [MonoPInvokeCallback(typeof(OnOpenFileCompleted))]
+        internal static void DelegateOnOpenFileCompletedEvent(IntPtr namePtr, IntPtr chunkPtr, int chunkSize)
         {
             string name = Marshal.PtrToStringAuto(namePtr);
             var bytes = new byte[chunkSize];
             Marshal.Copy(chunkPtr, bytes, 0, chunkSize);
-            onUploadFileCompleted.Invoke(name, bytes);
-            onUploadFileCompleted = null;
+            onOpenFileCompleted.Invoke(name, bytes);
+            onOpenFileCompleted = null;
         }
 
         [DllImport("__Internal")]

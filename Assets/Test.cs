@@ -37,12 +37,16 @@ public class Test : MonoBehaviour
         GUILayout.EndVertical();
 
         GUILayout.BeginVertical("box");
-        if (GUILayout.Button("Upload File"))
+        if(string.IsNullOrEmpty(uploadFileName))
+            GUILayout.Label("Try to open a image file:");
+        else
+            GUILayout.Label("File: " + uploadFileName);
+        if (GUILayout.Button("Open File"))
         {
             uploadFileName = "";
             uploadBytes = null;
             uploadTexture = null;
-            WebGLKit.UploadFile((filename, bytes) =>
+            WebGLKit.OpenFile((filename, bytes) =>
             {
                 WebGLKit.Log("file name: " + filename);
                 WebGLKit.Log("file size: " + bytes.Length);
@@ -52,7 +56,6 @@ public class Test : MonoBehaviour
                 // Do something else
             });
         }
-        GUILayout.Label("file:" + uploadFileName);
         if (uploadFileName.EndsWith(".png") || uploadFileName.EndsWith(".jpg")
             || uploadFileName.EndsWith(".jpeg"))
         {

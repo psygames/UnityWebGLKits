@@ -76,9 +76,9 @@ var KitsLibrary =
 	///    APIs     ///
 	///////////////////
 
-	UploadFile: function(callback)
+	OpenFile: function(callback)
 	{
-		// Internal_Log("Call UploadFile");
+		// Internal_Log("Call OpenFile");
 		callbacks.onOpenFileCallback = callback;
 		var inputObj = document.getElementById('_open_file_dialog_input');
 		if(inputObj === null)
