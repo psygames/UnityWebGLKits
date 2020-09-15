@@ -56,7 +56,8 @@ public class Test : MonoBehaviour
                 // Do something else
             });
         }
-        if (uploadFileName.EndsWith(".png") || uploadFileName.EndsWith(".jpg")
+        if (uploadFileName.EndsWith(".png") 
+            || uploadFileName.EndsWith(".jpg")
             || uploadFileName.EndsWith(".jpeg"))
         {
             if (uploadTexture == null)
