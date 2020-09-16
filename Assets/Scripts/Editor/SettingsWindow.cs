@@ -205,7 +205,7 @@ namespace WebGLKits.Editor
 
 #if UNITY_2019_1_OR_NEWER
                 if (!isMemorySizeFixed)
-                    PlayerSettings.WebGL.memorySize = 128;
+                    PlayerSettings.WebGL.memorySize = 256;
 #endif
 
 #if UNITY_2020_1_OR_NEWER

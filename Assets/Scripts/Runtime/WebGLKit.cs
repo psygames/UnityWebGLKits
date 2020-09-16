@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Runtime.InteropServices;
 using AOT;
 using UnityEngine;
@@ -9,30 +10,61 @@ namespace WebGLKits
     {
         public static void OpenFile(Action<string, byte[]> callback)
         {
+#if UNITY_WEBGL && !UNITY_EDITOR
             Library.onOpenFileCompleted = callback;
             Library.OpenFile(Library.DelegateOnOpenFileCompletedEvent);
+#elif UNITY_EDITOR
+            string filePath = UnityEditor.EditorUtility.OpenFilePanel("OpenFile", "", "*.*");
+            if (!string.IsNullOrEmpty(filePath))
+            {
+                callback(Path.GetFileName(filePath), File.ReadAllBytes(filePath));
+            }
+#else
+            Debug.LogError("the function not support on this platform.");
+#endif
         }
 
         public static void Alert(string str)
         {
+#if UNITY_WEBGL && !UNITY_EDITOR
             Library.Alert(str);
+#elif UNITY_EDITOR
+            UnityEditor.EditorUtility.DisplayDialog("alert", str, "OK");
+#else
+            Debug.LogError("the function not support on this platform.");
+#endif
         }
 
         public static void Log(string str)
         {
+#if UNITY_WEBGL && !UNITY_EDITOR
             Library.Log(str);
+#else
+            Debug.Log(str);
+#endif
         }
 
         public static string EvalJs(string jsCode)
         {
+#if UNITY_WEBGL && !UNITY_EDITOR
             return Library.EvalJs(jsCode);
+#else
+            Debug.LogError("the function not support on this platform.");
+            return "";
+#endif
         }
 
         public static void SetResolution(int width, int height)
         {
+#if UNITY_WEBGL && !UNITY_EDITOR
             Screen.SetResolution(width, height, false);
             Library.SetResolution(width, height);
+#else
+            Screen.SetResolution(width, height, false);
+#endif
         }
+
+        //TODO: IME Input Support
 
         //TODO: Ctrl C , Ctrl V
 

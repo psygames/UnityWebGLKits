@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 using WebGLKits;
 
 public class Test : MonoBehaviour
@@ -22,7 +19,9 @@ public class Test : MonoBehaviour
 
     private void OnGUI()
     {
-        scroll = GUILayout.BeginScrollView(scroll);
+        scroll = GUILayout.BeginScrollView(scroll,GUILayout.Width(300));
+
+        // BASE
         GUILayout.BeginVertical("box");
         GUILayout.Label("Base:");
         if (GUILayout.Button("console.log"))
@@ -36,8 +35,9 @@ public class Test : MonoBehaviour
         }
         GUILayout.EndVertical();
 
+        // OPEN FILE
         GUILayout.BeginVertical("box");
-        if(string.IsNullOrEmpty(uploadFileName))
+        if (string.IsNullOrEmpty(uploadFileName))
             GUILayout.Label("Try to open a image file:");
         else
             GUILayout.Label("File: " + uploadFileName);
@@ -56,17 +56,18 @@ public class Test : MonoBehaviour
                 // Do something else
             });
         }
-        if (uploadFileName.EndsWith(".png") 
+        if (uploadFileName.EndsWith(".png")
             || uploadFileName.EndsWith(".jpg")
             || uploadFileName.EndsWith(".jpeg"))
         {
             if (uploadTexture == null)
-                uploadTexture = new Texture2D(200, 100);
+                uploadTexture = new Texture2D(0, 0);
             uploadTexture.LoadImage(uploadBytes);
-            GUILayout.Box(uploadTexture, GUILayout.Width(200), GUILayout.Height(100));
+            GUILayout.Box(uploadTexture, GUILayout.Width(266), GUILayout.Height(150));
         };
         GUILayout.EndVertical();
 
+        // RESOLUTION
         GUILayout.BeginVertical("box");
         GUILayout.Label("Resolution: ");
         GUILayout.BeginHorizontal();
@@ -80,6 +81,8 @@ public class Test : MonoBehaviour
         }
         GUILayout.EndVertical();
 
+
+        // EVAL JS CODE
         GUILayout.BeginVertical("box");
         GUILayout.Label("JS Code: ");
         jsCode = GUILayout.TextArea(jsCode);
@@ -89,6 +92,8 @@ public class Test : MonoBehaviour
             WebGLKit.Log(result);
         }
         GUILayout.EndVertical();
+
+
         GUILayout.EndScrollView();
     }
 }
