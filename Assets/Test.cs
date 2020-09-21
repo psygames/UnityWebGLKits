@@ -61,8 +61,11 @@ public class Test : MonoBehaviour
             || uploadFileName.EndsWith(".jpeg"))
         {
             if (uploadTexture == null)
+            {
                 uploadTexture = new Texture2D(0, 0);
-            uploadTexture.LoadImage(uploadBytes);
+                uploadTexture.LoadImage(uploadBytes);
+                uploadBytes = null;
+            }
             GUILayout.Box(uploadTexture, GUILayout.Width(266), GUILayout.Height(150));
         };
         GUILayout.EndVertical();
