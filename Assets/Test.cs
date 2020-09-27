@@ -13,7 +13,7 @@ public class Test : MonoBehaviour
 
     private void Awake()
     {
-        width = Screen.width;
+        width = 400;
         height = Screen.height;
     }
 

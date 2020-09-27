@@ -107,6 +107,7 @@ var KitsLibrary =
 			document.body.appendChild(inputObj);
 		}
 
+		//TODO: 判断浏览器，分别调用不同方式，暂时统一都调用。
 		var maskObj = document.getElementById('_open_file_dialog_mask');
 		if(maskObj === null)
 		{
