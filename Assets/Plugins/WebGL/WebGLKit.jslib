@@ -38,6 +38,12 @@ var KitsLibrary =
 
 	$Internal_OnOpenFile: function()
 	{
+		// clear mask
+		document.onmouseup = null;
+		var maskObj = document.getElementById('_open_file_dialog_mask');
+		if(maskObj !== null) document.body.removeChild(maskObj);
+
+		// file info
 		var inputObj = document.getElementById('_open_file_dialog_input');
 		var selectedFile = inputObj.files[0];
 		inputObj.value = null;
@@ -87,7 +93,7 @@ var KitsLibrary =
 		  inputObj = document.createElement('input');
 			inputObj.setAttribute('id', '_open_file_dialog_input');
 			inputObj.setAttribute('type', 'file');
-			inputObj.setAttribute("style", 'visibility:hidden');
+			inputObj.setAttribute('style', 'visibility:hidden');
 
 		 	// WebGL instance renamed from gameInstance to unityInstance in 2019.1
 		 	if(typeof(unityInstance) != "undefined")
@@ -100,7 +106,28 @@ var KitsLibrary =
 			}
 			document.body.appendChild(inputObj);
 		}
+
+		var maskObj = document.getElementById('_open_file_dialog_mask');
+		if(maskObj === null)
+		{
+			maskObj = document.createElement('div');
+			maskObj.setAttribute('id', '_open_file_dialog_mask');
+			maskObj.setAttribute('style', 'display:block; width:100%; height:100%; background-color:black; position:fixed; opacity:0.7; top:0px; left:0px;');
+			document.body.appendChild(maskObj);
+			var tipsLabel = document.createElement('label');
+			tipsLabel.setAttribute('style', 'display:block; color:white; position:fixed; top:50%; width:100%; text-align:center;');
+			maskObj.appendChild(tipsLabel);
+			tipsLabel.innerHTML = 'Click to Open File Dialog.';
+		}
+
 		inputObj.click();
+
+		document.onmouseup = function()
+		{
+			document.onmouseup = null;
+			if(maskObj !== null) document.body.removeChild(maskObj);
+			inputObj.click();
+		}
 
 		return 1;
 	},
