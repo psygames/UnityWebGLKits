@@ -2,7 +2,7 @@
 The Unity WebGL Platform Extension Kis.
 
 ## 在线示例
-[https://psygame.github.io/WebGLKits/](https://psygame.github.io/WebGLKits/)
+[https://psygame.github.io/WebGLKits/](https://psygame.github.io/WebGLKits/index.html)
 
 ## 功能列表
 
